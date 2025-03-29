@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Almanack of Naval Ravikant - Manga Edition</title>
+    <style>
+        :root {
+            --primary: #111;
+            --secondary: #f8f8f8;
+            --accent: #6b46c1;
+            --panel-border: #000;
+            --panel-bg: #fff;
+            --text: #111;
+            --bg: #fff;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary: #f8f8f8;
+            --secondary: #111;
+            --accent: #9f7aea;
+            --panel-border: #fff;
+            --panel-bg: #111;
+            --text: #f8f8f8;
+            --bg: #111;
+            --nav-bg: rgba(17, 17, 17, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem;
+            background: var(--nav-bg);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        main {
+            margin-top: 5rem;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Bangers', 'Comic Sans MS', cursive;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        /* Comic Panels */
+        .comic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .panel {
+            border: 3px solid var(--panel-border);
+            background-color: var(--panel-bg);
+            padding: 1.5rem;
+            position: relative;
+            transition: var(--transition);
+            transform: rotate(-1deg);
+            box-shadow: 5px 5px 0px rgba(0,0,0,0.2);
+        }
+
+        .panel:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        .panel:hover {
+            transform: scale(1.02) rotate(0);
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.15);
+        }
+
+        .speech-bubble {
+            position: relative;
+            background: var(--panel-bg);
+            border: 2px solid var(--panel-border);
+            border-radius: 20px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50px;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-top-color: var(--panel-border);
+            border-bottom: 0;
+            margin-left: -15px;
+            margin-bottom: -15px;
+        }
+
+        .speech-bubble:before {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50px;
+            width: 0;
+            height: 0;
+            border: 12px solid transparent;
+            border-top-color: var(--panel-bg);
+            border-bottom: 0;
+            margin-left: -12px;
+            margin-bottom: -12px;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 6rem;
+        }
+
+        .hero-art {
+            max-width: 800px;
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .hero-panel {
+            width: 100%;
+            height: 400px;
+            background-image: url('/api/placeholder/800/400');
+            background-size: cover;
+            background-position: center;
+            border: 5px solid var(--panel-border);
+            position: relative;
+            margin-bottom: 3rem;
+            box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
+        }
+
+        /* Table of Contents */
+        .toc {
+            border-left: 3px solid var(--panel-border);
+            padding-left: 2rem;
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .toc-item {
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .toc-item:hover {
+            transform: translateX(10px);
+        }
+
+        .toc-item a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .toc-item a:hover {
+            color: var(--accent);
+        }
+
+        .toc-item span {
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            margin-right: 1rem;
+        }
+
+        /* Wealth & Judgment Section */
+        .wealth-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .concept-card {
+            background: var(--panel-bg);
+            border: 3px solid var(--panel-border);
+            padding: 1.5rem;
+            transition: var(--transition);
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
+        }
+
+        .concept-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 5px 15px 0 rgba(0,0,0,0.1);
+        }
+
+        .concept-card h3 {
+            border-bottom: 2px dashed var(--panel-border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Quotes Gallery */
+        .quotes-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .quote-bubble {
+            background: var(--panel-bg);
+            border: 3px solid var(--panel-border);
+            border-radius: 30px;
+            padding: 1.5rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .quote-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border: 20px solid transparent;
+            border-top-color: var(--panel-border);
+            border-bottom: 0;
+        }
+
+        .quote-bubble:hover {
+            transform: scale(1.05);
+        }
+
+        .quote-text {
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+
+        /* Interactive Section */
+        .chat-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            background: var(--panel-bg);
+            border: 3px solid var(--panel-border);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px dashed var(--panel-border);
+            padding-bottom: 1rem;
+        }
+
+        .chat-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-image: url('/api/placeholder/60/60');
+            background-size: cover;
+            border: 2px solid var(--panel-border);
+            margin-right: 1rem;
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border: 2px solid var(--panel-border);
+            border-radius: 8px;
+            background: var(--secondary);
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .message.naval {
+            background: var(--accent);
+            color: white;
+            align-self: flex-start;
+            margin-right: auto;
+            border-radius: 10px 10px 10px 0;
+        }
+
+        .message.user {
+            background: #e2e8f0;
+            color: #333;
+            align-self: flex-end;
+            margin-left: auto;
+            border-radius: 10px 10px 0 10px;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid var(--panel-border);
+            border-radius: 5px;
+            font-size: 1rem;
+            background: var(--secondary);
+            color: var(--text);
+        }
+
+        .chat-input button {
+            padding: 0.8rem 1.5rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-input button:hover {
+            background: #553c9a;
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem 0;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+            }
+
+            nav li {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            .wealth-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-panel {
+                height: 300px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Naval Manga</div>
+        <nav>
+            <ul>
+                <li><a href="#intro">Intro</a></li>
+                <li><a href="#toc">Contents</a></li>
+                <li><a href="#wealth">Wealth</a></li>
+                <li><a href="#happiness">Happiness</a></li>
+                <li><a href="#quotes">Quotes</a></li>
+                <li><a href="#ask-naval">Ask Naval</a></li>
+            </ul>
+        </nav>
+        <button class="theme-toggle" id="theme-toggle">Dark Mode</button>
+    </header>
+
+    <main>
+        <!-- Introduction Section -->
+        <section id="intro" class="hero">
+            <h1>The Almanack of Naval Ravikant</h1>
+            <p class="subtitle">Wisdom in Manga Style</p>
+            
+            <div class="hero-art">
+                <div class="hero-panel">
+                    <!-- Hero Panel Image -->
+                </div>
+                <div class="speech-bubble animate-in">
+                    <p class="quote-text">"The purpose of life is to learn, the purpose of learning is to understand yourself, and understanding yourself leads to salvation."</p>
+                </div>
+            </div>
+            
+            <p>Scroll down to explore Naval's philosophy through comic visuals and interactive elements. Discover timeless wisdom on wealth, happiness, and life.</p>
+        </section>
+
+        <!-- Table of Contents -->
+        <section id="toc">
+            <h2>Table of Contents</h2>
+            <p>Your manga-style guide to Naval's wisdom. Click a chapter to begin your journey.</p>
+            
+            <div class="toc">
+                <div class="toc-item">
+                    <a href="#wealth"><span>01</span> Wealth: How to Get Rich Without Getting Lucky</a>
+                </div>
+                <div class="toc-item">
+                    <a href="#judgment"><span>02</span> Building Judgment: Clear Thinking</a>
+                </div>
+                <div class="toc-item">
+                    <a href="#happiness"><span>03</span> Happiness: The Path to Peace</a>
+                </div>
+                <div class="toc-item">
+                    <a href="#learning"><span>04</span> Learning: The Endless Game</a>
+                </div>
+                <div class="toc-item">
+                    <a href="#quotes"><span>05</span> Timeless Quotes & Wisdom</a>
+                </div>
+                <div class="toc-item">
+                    <a href="#ask-naval"><span>06</span> Interactive: Ask Naval</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wealth Section -->
+        <section id="wealth">
+            <h2>Wealth & Judgment</h2>
+            <p>Naval's principles on creating wealth and developing clear thinking, illustrated manga-style.</p>
+            
+            <div class="comic-grid">
+                <div class="panel animate-in">
+                    <h3>Seek Wealth, Not Money or Status</h3>
+                    <div class="speech-bubble">
+                        <p>"Wealth is having assets that earn while you sleep. Money is how we transfer time and wealth. Status is your place in the social hierarchy."</p>
+                    </div>
+                    <p>Wealth creation comes from owning equity and assets - not from trading time for money.</p>
+                </div>
+                
+                <div class="panel animate-in">
+                    <h3>Play Long-term Games</h3>
+                    <div class="speech-bubble">
+                        <p>"Play iterated games. All returns in life come from compound interest in long-term games."</p>
+                    </div>
+                    <p>Compound interest applies to relationships, knowledge, and reputation - not just money.</p>
+                </div>
+            </div>
+            
+            <div class="wealth-grid">
+                <div class="concept-card animate-in">
+                    <h3>Specific Knowledge</h3>
+                    <p>Knowledge that cannot be trained for. If society can train you, it can train someone else and replace you.</p>
+                    <p>It's found by pursuing your genuine curiosity and passion rather than whatever is hot right now.</p>
+                </div>
+                
+                <div class="concept-card animate-in">
+                    <h3>Learn to Sell, Learn to Build</h3>
+                    <p>If you can do both, you'll be unstoppable.</p>
+                    <p>Building refers to creating things, while selling is persuading others of your creation's value.</p>
+                </div>
+                
+                <div class="concept-card animate-in">
+                    <h3>Leverage</h3>
+                    <p>Code, media, capital, and labor are forms of leverage that multiply your work output.</p>
+                    <p>Code and media have zero marginal cost of replication - they create wealth while you sleep.</p>
+                </div>
+                
+                <div class="concept-card animate-in">
+                    <h3>Judgment</h3>
+                    <p>Given knowledge and leverage, judgment becomes the most important skill.</p>
+                    <p>It's the ability to make the right decisions consistently, often with limited information.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Happiness Section -->
+        <section id="happiness">
+            <h2>Happiness & Philosophy</h2>
+            <p>Naval's approach to finding peace and living with purpose.</p>
+            
+            <div class="comic-grid">
+                <div class="panel animate-in">
+                    <h3>Happiness is a Choice</h3>
+                    <div class="speech-bubble">
+                        <p>"Happiness is a choice you make and a skill you develop. It's not something outside of yourself that you chase and acquire."</p>
+                    </div>
+                    <p>Happiness is the absence of desire, especially desire for external validation or things.</p>
+                </div>
+                
+                <div class="panel animate-in">
+                    <h3>Meditation & Mental Health</h3>
+                    <div class="speech-bubble">
+                        <p>"All of man's troubles arise because he cannot sit in a room quietly by himself."</p>
+                    </div>
+                    <p>Daily meditation is the single most important habit for calming your mind and finding contentment.</p>
+                </div>
+                
+                <div class="panel animate-in">
+                    <h3>The Present Moment</h3>
+                    <div class="speech-bubble">
+                        <p>"The struggle isn't worthwhile. Living in the moment is. Stop postponing your happiness."</p>
+                    </div>
+                    <p>There is no 'arrival' or 'destination' where you'll find happiness. It's only found in the present.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quotes Section -->
+        <section id="quotes">
+            <h2>Quotes & Wisdom</h2>
+            <p>Naval's most profound insights, presented in manga-style speech bubbles.</p>
+            
+            <div class="quotes-gallery">
+                <div class="quote-bubble animate-in">
+                    <p class="quote-text">"Read what you love until you love to read."</p>
+                </div>
+                
+                <div class="quote-bubble animate-in">
+                    <p class="quote-text">"The moment you tell somebody that something is wrong with them, you've lost the ability to influence them."</p>
+                </div>
+                
+                <div class="quote-bubble animate-in">
+                    <p class="quote-text">"You're not going to get rich renting out your time. You must own equity—a piece of a business—to gain your financial freedom."</p>
+                </div>
+                
+                <div class="quote-bubble animate-in">
+                    <p class="quote-text">"If you don't know yet what you should work on, the most important thing is to figure out what you're passionate about."</p>
+                </div>
+                
+                <div class="quote-bubble animate-in">
+                    <p class="quote-text">"The internet has massively broadened the possible space of careers. Most people haven't figured this out yet."</p>
+                </div>
+                
+                <div class="quote-bubble animate-in">
+                    <p class="quote-text">"Understand that ethical wealth creation is possible. If you secretly despise wealth, it will elude you."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Section -->
+        <section id="ask-naval">
+            <h2>Ask Naval</h2>
+            <p>Interact with Naval's wisdom through this manga-style chat interface.</p>
+            
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-avatar"></div>
+                    <h3>Naval's Wisdom Bot</h3>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message naval">
+                        <p>I'm here to share insights on wealth, happiness, and life philosophy. What would you like to know about?</p>
+                    </div>
+                </div>
+                
+                <div class="chat-input">
+                    <input type="text" id="user-input" placeholder="Ask about wealth, happiness, or philosophy...">
+                    <button id="send-btn">Ask</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.setAttribute(
+                'data-theme', 
+                document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+            );
+            
+            themeToggle.textContent = document.documentElement.getAttribute('data-theme') === 'dark' 
+                ? 'Light Mode' 
+                : 'Dark Mode';
+        });
+
+        // Basic Animation on Scroll
+        const animateItems = document.querySelectorAll('.animate-in');
+        
+        function checkScroll() {
+            animateItems.forEach(item => {
+                const itemTop = item.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (itemTop < windowHeight - 100) {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+
+        // Simple Chat Functionality
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+        
+        const navalResponses = {
+            'wealth': "Wealth is assets that earn while you sleep. Focus on creating products with no marginal cost of replication.",
+            'money': "Money is how we transfer time and wealth. Don't mix up money with wealth.",
+            'happiness': "Happiness is a choice and a skill. It's not something outside that you acquire, but a state you cultivate.",
+            'meditation': "Daily meditation is the single most powerful habit for mental clarity and peace.",
+            'reading': "Read what you love until you love to read. When you find the right book, it feels like the author wrote it just for you.",
+            'success': "Pick a career where you play long-term games with long-term people. All returns in life come from compound interest.",
+            'learning': "Learn to learn. Read the fundamentals in math, science, and philosophy. Understand the basics really well.",
+            'default': "True wisdom comes from clear thinking. Clear thinking requires independent thinking. And independent thinking requires a rational framework to operate in."
+        };
+        
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender);
+            
+            const messagePara = document.createElement('p');
+            messagePara.textContent = text;
+            
+            messageDiv.appendChild(messagePara);
+            chatMessages.appendChild(messageDiv);
+            
+            // Auto-scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function getNavalResponse(query) {
+            query = query.toLowerCase();
+            
+            for (const keyword in navalResponses) {
+                if (query.includes(keyword)) {
+                    return navalResponses[keyword];
+                }
+            }
+            
+            return navalResponses.default;
+        }
+        
+        sendBtn.addEventListener('click', () => {
+            const userMessage = userInput.value.trim();
+            
+            if (userMessage) {
+                addMessage(userMessage, 'user');
+                
+                // Simulate typing delay
+                setTimeout(() => {
+                    const navalMessage = getNavalResponse(userMessage);
+                    addMessage(navalMessage, 'naval');
+                }, 800);
+                
+                userInput.value = '';
+            }
+        });
+        
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendBtn.click();
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
