@@ -131,6 +131,282 @@
             font-size: 1.1rem;
         }
 
+        /* Chat Container Styles */
+        .chat-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            background: var(--panel-bg);
+            border: 3px solid var(--panel-border);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px dashed var(--panel-border);
+            padding-bottom: 1rem;
+        }
+
+        .chat-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-image: url('/api/placeholder/60/60');
+            background-size: cover;
+            border: 2px solid var(--panel-border);
+            margin-right: 1rem;
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border: 2px solid var(--panel-border);
+            border-radius: 8px;
+            background: var(--secondary);
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 10px;
+            max-width: 80%;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .message.naval {
+            background: var(--accent);
+            color: white;
+            align-self: flex-start;
+            margin-right: auto;
+            border-radius: 10px 10px 10px 0;
+        }
+
+        .message.user {
+            background: #e2e8f0;
+            color: #333;
+            align-self: flex-end;
+            margin-left: auto;
+            border-radius: 10px 10px 0 10px;
+            text-align: right;
+            margin-left: 20%;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid var(--panel-border);
+            border-radius: 5px;
+            font-size: 1rem;
+            background: var(--secondary);
+            color: var(--text);
+        }
+
+        .chat-input button {
+            padding: 0.8rem 1.5rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-input button:hover {
+            background: #553c9a;
+            transform: translateY(-2px);
+        }
+
+        .chat-input button:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            padding: 0.5rem;
+            background: var(--accent);
+            color: white;
+            align-self: flex-start;
+            margin-right: auto;
+            border-radius: 10px 10px 10px 0;
+            margin-bottom: 1rem;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            margin: 0 3px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: typingAnimation 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingAnimation {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        :root {
+            --primary: #111;
+            --secondary: #f8f8f8;
+            --accent: #6b46c1;
+            --panel-border: #000;
+            --panel-bg: #fff;
+            --text: #111;
+            --bg: #fff;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary: #f8f8f8;
+            --secondary: #111;
+            --accent: #9f7aea;
+            --panel-border: #fff;
+            --panel-bg: #111;
+            --text: #f8f8f8;
+            --bg: #111;
+            --nav-bg: rgba(17, 17, 17, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Neue', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem;
+            background: var(--nav-bg);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav li {
+            margin-left: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        main {
+            margin-top: 5rem;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Bangers', 'Comic Sans MS', cursive;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
         /* Comic Panels */
         .comic-grid {
             display: grid;
@@ -649,21 +925,21 @@
         <section id="ask-naval">
             <h2>Ask Naval</h2>
             <p>Interact with Naval's wisdom through this manga-style chat interface.</p>
-            
+            <!--chat section -->
             <div class="chat-container">
                 <div class="chat-header">
                     <div class="chat-avatar"></div>
-                    <h3>Naval's Wisdom Bot</h3>
+                    <h3>Naval Ravikant</h3>
                 </div>
                 
                 <div class="chat-messages" id="chat-messages">
                     <div class="message naval">
-                        <p>I'm here to share insights on wealth, happiness, and life philosophy. What would you like to know about?</p>
+                        <p>I'm Naval. Ask me about wealth creation, happiness, mental models, reading, or philosophy. What's on your mind today?</p>
                     </div>
                 </div>
                 
                 <div class="chat-input">
-                    <input type="text" id="user-input" placeholder="Ask about wealth, happiness, or philosophy...">
+                    <input type="text" id="user-input" placeholder="Ask Naval about wealth, happiness, or philosophy...">
                     <button id="send-btn">Ask</button>
                 </div>
             </div>
@@ -685,39 +961,42 @@
                 : 'Dark Mode';
         });
 
-        // Basic Animation on Scroll
-        const animateItems = document.querySelectorAll('.animate-in');
-        
-        function checkScroll() {
-            animateItems.forEach(item => {
-                const itemTop = item.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (itemTop < windowHeight - 100) {
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateY(0)';
-                }
-            });
-        }
-        
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('load', checkScroll);
-
-        // Simple Chat Functionality
+        // Chat Functionality with Gemini API
         const chatMessages = document.getElementById('chat-messages');
         const userInput = document.getElementById('user-input');
         const sendBtn = document.getElementById('send-btn');
         
-        const navalResponses = {
-            'wealth': "Wealth is assets that earn while you sleep. Focus on creating products with no marginal cost of replication.",
-            'money': "Money is how we transfer time and wealth. Don't mix up money with wealth.",
-            'happiness': "Happiness is a choice and a skill. It's not something outside that you acquire, but a state you cultivate.",
-            'meditation': "Daily meditation is the single most powerful habit for mental clarity and peace.",
-            'reading': "Read what you love until you love to read. When you find the right book, it feels like the author wrote it just for you.",
-            'success': "Pick a career where you play long-term games with long-term people. All returns in life come from compound interest.",
-            'learning': "Learn to learn. Read the fundamentals in math, science, and philosophy. Understand the basics really well.",
-            'default': "True wisdom comes from clear thinking. Clear thinking requires independent thinking. And independent thinking requires a rational framework to operate in."
-        };
+        // Replace with your actual Gemini API key
+        const API_KEY = 'AIzaSyBxTcbvuXgQATCKNgQqxYzXst2ptCzClKg';
+        const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+        
+        // Store conversation context
+        let conversationHistory = [
+            {
+                role: "model",
+                parts: [{ text: "I'm Naval. Ask me about wealth creation, happiness, mental models, reading, or philosophy. What's on your mind today?" }]
+            }
+        ];
+        
+        // Naval's key principles and thinking to guide the model
+        const navalContext = `
+            You are Naval Ravikant, a tech entrepreneur, investor, and modern philosopher known for your concise, 
+            profound wisdom on wealth creation, happiness, and living a meaningful life. Respond as Naval would - 
+            in a clear, direct, and thoughtful manner.
+
+            Key principles of Naval's thinking:
+            - Wealth is assets that earn while you sleep. Focus on specific knowledge, accountability, leverage, and judgment.
+            - Happiness is a choice and a skill, not something to be pursued externally.
+            - Read what you love until you love to read. Books are the backup brain of civilization.
+            - Learn to learn. The fundamentals in math, science, and philosophy are more important than specific skills.
+            - Play long-term games with long-term people. All returns in life come from compound interest.
+            - Meditation and mental clarity are the foundation of a good life.
+            - Seek truth above social approval.
+            - Speak directly and authentically. Avoid jargon and unnecessary complexity.
+            - "The purpose of life is to learn, the purpose of learning is to understand yourself, and understanding yourself leads to salvation."
+
+            Answer as Naval would, with clarity, wisdom, and direct honesty. Keep responses concise but profound.
+        `;
         
         function addMessage(text, sender) {
             const messageDiv = document.createElement('div');
@@ -733,36 +1012,137 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
-        function getNavalResponse(query) {
-            query = query.toLowerCase();
+        function addTypingIndicator() {
+            const indicator = document.createElement('div');
+            indicator.classList.add('typing-indicator');
+            indicator.id = 'typing-indicator';
             
-            for (const keyword in navalResponses) {
-                if (query.includes(keyword)) {
-                    return navalResponses[keyword];
-                }
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('typing-dot');
+                indicator.appendChild(dot);
             }
             
-            return navalResponses.default;
+            chatMessages.appendChild(indicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
-        sendBtn.addEventListener('click', () => {
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+        
+        async function getNavalResponse(userMessage) {
+            // Add user message to conversation history
+            conversationHistory.push({
+                role: "user",
+                parts: [{ text: userMessage }]
+            });
+            
+            try {
+                const response = await fetch(`${API_URL}?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        contents: [
+                            {
+                                role: "user",
+                                parts: [{ text: navalContext }]
+                            },
+                            ...conversationHistory
+                        ]
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+                
+                const data = await response.json();
+                const navalResponse = data.candidates[0].content.parts[0].text;
+                
+                // Add Naval's response to conversation history
+                conversationHistory.push({
+                    role: "model",
+                    parts: [{ text: navalResponse }]
+                });
+                
+                return navalResponse;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                return "I seem to be having a moment of reflection. Please try again with your question.";
+            }
+        }
+        
+        // Fallback responses if API fails
+        const fallbackResponses = [
+            "Specific knowledge is knowledge you cannot be trained for. If society can train you, it can train someone else and replace you.",
+            "Earn with your mind, not your time. The most important skill for getting rich is becoming a perpetual learner.",
+            "Happiness is a choice you make and a skill you develop. It's the absence of desire, especially the absence of desire for external things.",
+            "The purpose of meditation is to learn to see the thoughts as thoughts and not get so caught up and identified with them.",
+            "All the real benefits in life come from compound interest.",
+            "Read what you love until you love to read. Reading is faster than listening, doing is faster than watching.",
+            "Learn to sell, learn to build. If you can do both, you'll be unstoppable.",
+            "The moment you tell somebody that something is wrong with them, you've lost your ability to influence them.",
+            "If you're not spending your time doing what you want, and you're not earning, and you're not learning, what the heck are you doing?",
+            "In a long-term game, the returns are in the compound interest."
+        ];
+        
+        function getRandomFallbackResponse() {
+            const randomIndex = Math.floor(Math.random() * fallbackResponses.length);
+            return fallbackResponses[randomIndex];
+        }
+        
+        sendBtn.addEventListener('click', async () => {
             const userMessage = userInput.value.trim();
             
             if (userMessage) {
+                // Disable input and button while processing
+                userInput.disabled = true;
+                sendBtn.disabled = true;
+                
+                // Add user message to chat
                 addMessage(userMessage, 'user');
                 
-                // Simulate typing delay
-                setTimeout(() => {
-                    const navalMessage = getNavalResponse(userMessage);
-                    addMessage(navalMessage, 'naval');
-                }, 800);
-                
+                // Clear input
                 userInput.value = '';
+                
+                // Show typing indicator
+                addTypingIndicator();
+                
+                try {
+                    // Get response from API
+                    const navalMessage = await getNavalResponse(userMessage);
+                    
+                    // Remove typing indicator
+                    removeTypingIndicator();
+                    
+                    // Add Naval's response
+                    addMessage(navalMessage, 'naval');
+                } catch (error) {
+                    console.error('Error getting response:', error);
+                    
+                    // Remove typing indicator
+                    removeTypingIndicator();
+                    
+                    // Add fallback response
+                    addMessage(getRandomFallbackResponse(), 'naval');
+                }
+                
+                // Re-enable input and button
+                userInput.disabled = false;
+                sendBtn.disabled = false;
+                userInput.focus();
             }
         });
         
         userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !sendBtn.disabled) {
                 sendBtn.click();
             }
         });
